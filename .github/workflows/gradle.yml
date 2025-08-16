@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main   # Trigger only on push to main (change if needed)
+      - main   # Change branch if needed
 
 jobs:
   build:
