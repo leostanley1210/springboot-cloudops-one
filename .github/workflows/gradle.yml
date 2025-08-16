@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 env:
   JAVA_VERSION: "17"
@@ -19,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -28,7 +27,7 @@ jobs:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
 
-      - name: Grant execute permission for gradlew
+      - name: Make Gradle wrapper executable
         run: chmod +x gradlew
 
       - name: Build with Gradle
