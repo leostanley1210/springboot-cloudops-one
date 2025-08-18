@@ -9,10 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REGISTRY: ${{ secrets.HARBOR_REGISTRY }}   # e.g., harbor.example.com
-      PROJECT: ${{ secrets.HARBOR_PROJECT }}     # e.g., myproject
+      REGISTRY: ${{ secrets.HARBOR_REGISTRY }}
+      PROJECT: ${{ secrets.HARBOR_PROJECT }}
       IMAGE: springboot-app
-      SHA_TAG: ${{ github.sha }}
 
     steps:
       - name: Checkout repository
@@ -31,12 +30,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.HARBOR_ROBOT_USERNAME }}  # e.g., robot$myproject+ci
+          username: ${{ secrets.HARBOR_ROBOT_USERNAME }}
           password: ${{ secrets.HARBOR_ROBOT_PASSWORD }}
 
       - name: Build Docker image
         run: |
-          docker build -t $REGISTRY/$PROJECT/$IMAGE:latest
-  
-      - name: Push Docker image (latest)
+          docker build \
+            -t $REGISTRY/$PROJECT/$IMAGE:latest \
+            .
+
+      - name: Push Docker image
         run: docker push $REGISTRY/$PROJECT/$IMAGE:latest
