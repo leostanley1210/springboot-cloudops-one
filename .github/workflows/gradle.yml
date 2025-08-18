@@ -20,7 +20,6 @@ jobs:
 
       # 3. Generate gradlew if it doesn't exist
       - name: Generate Gradle Wrapper
-        if: !exists('gradlew')
         run: |
           gradle wrapper --gradle-version 8.7
           chmod +x gradlew
