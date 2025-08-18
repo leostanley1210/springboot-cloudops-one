@@ -3,13 +3,13 @@ name: Build and Push Docker Image to Harbor
 on:
   push:
     branches:
-      - master # change if needed
+      - master
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     environment:
-      name: harbor-push  # triggers manual approval
+      name: harbor-push
 
     steps:
       - name: Checkout code
@@ -25,14 +25,9 @@ jobs:
           password: ${{ secrets.HARBOR_PASSWORD }}
           registry: ${{ secrets.HARBOR_REGISTRY }}
 
-      - name: Build Docker image
+      - name: Build and Push Docker image
         run: |
           IMAGE_NAME=${{ secrets.HARBOR_REGISTRY }}/project-name/my-app:latest
           docker build -t $IMAGE_NAME .
-          echo "Built $IMAGE_NAME"
-
-      - name: Push Docker image to Harbor
-        run: |
-          IMAGE_NAME=${{ secrets.HARBOR_REGISTRY }}/project-name/my-app:latest
           docker push $IMAGE_NAME
-          echo "Pushed $IMAGE_NAME"
+          echo "Successfully built and pushed $IMAGE_NAME"
