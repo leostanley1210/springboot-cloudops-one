@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: feature-preview   # <-- Access environment secrets
+    environment: feature # <-- Access environment secrets
     env:
       REGISTRY: ${{ secrets.HARBOR_REGISTRY }}
       PROJECT: ${{ secrets.HARBOR_PROJECT }}
